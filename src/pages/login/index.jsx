@@ -14,7 +14,7 @@ const Login = () => {
 	const onFinish = values => {
 		console.log('Success:', values)
 
-		navigate('/app', { replace: true })
+		navigate('/', { replace: true })
 	}
 
 	return (

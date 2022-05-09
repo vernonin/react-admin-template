@@ -1,15 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import page404 from '../icons/svg/404.svg'
+import '../style/notFound.css'
 
-const notFoundStyle = { display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }
-const textStyle = { fontSize: '18px', fontFamily: '楷体', fontWeight: 'bolder' }
+const backStyle = { width: '100vw', height: '100vh',background: `url(${page404}) center center no-repeat` }
 
 const NotFound = () => {
 	return (
-		<div style={notFoundStyle}>
-			<img src={page404} alt="" />
-			<div style={textStyle}>
+		<div style={backStyle} className="not-found-container" >
+			<div className="text-content">
 				<span>页面找不到</span>
 				<Link to="/">返回首页</Link>
 			</div>

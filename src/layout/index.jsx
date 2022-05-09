@@ -1,9 +1,12 @@
-import './index.css'
+import { Outlet } from 'react-router-dom'
+import { Layout } from 'antd'
 import HeaderNav from './components/HeaderNav'
 import FooterNav from './components/FooterNav'
 import SiderNav from './components/SiderNav'
 
-import { Layout } from 'antd'
+
+import './index.css'
+
 const { Header, Footer, Content } = Layout
 
 const index = () => {
@@ -14,7 +17,11 @@ const index = () => {
         <Header className='layout-header'>
 					<HeaderNav/>
 				</Header>
-        <Content>Content</Content>
+				<Content>
+
+					<Outlet />
+
+				</Content>
         <Footer className="layout-footer">
 					<FooterNav />
 				</Footer>
@@ -24,4 +31,4 @@ const index = () => {
 }
 
 
-export default index;
+export default index

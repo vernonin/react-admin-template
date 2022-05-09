@@ -53,8 +53,6 @@ const SiderNav = () => {
 						style={{
 							width: '100%',
 						}}
-						defaultOpenKeys={['sub1']}
-						selectedKeys={[current]}
 						mode="inline"
 						items={items}
 					/>
