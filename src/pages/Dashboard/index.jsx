@@ -10,11 +10,11 @@ import SalesVolume from '../../components/charts/SalesVolume'
 import DemoArea from '../../components/charts/DemoArea'
 import DemoLine from '../../components/charts/DemoLine'
 
+const style = {padding: '0px 10px'}
 const Dashboard = () => {
 
-
 	return (
-		<div>
+		<div style={style}>
 			<Row>
 				<Col span={6}>
 					<HometownSpecialty />
@@ -34,6 +34,17 @@ const Dashboard = () => {
 				</Col>
 				<Col span={8}>
 					<DemoLine />
+				</Col>
+				<Col span={8}>
+					<DemoArea />
+				</Col>
+			</Row>
+			<Row style={{height: '320px'}}>
+				<Col span={8}>
+					<DemoLine />
+				</Col>
+				<Col span={8}>
+					<SalesVolume />
 				</Col>
 				<Col span={8}>
 					<DemoArea />

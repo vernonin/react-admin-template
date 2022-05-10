@@ -1,23 +1,12 @@
 import { useRoutes, Navigate } from 'react-router-dom'
 
-import Layout from './layout'
-import Login from './pages/login'
-import Register from './pages/register'
-import NotFound from './pages/NotFound'
-import Dashboard from './pages/Dashboard'
+import Layout from '../layout'
+import Login from '../pages/login'
+import Register from '../pages/register'
+import NotFound from '../pages/NotFound'
 
-const asyncRoutes = [
-	{
-		path: '/app',
-		element: <Layout />,
-		children: [
-			{
-				path: 'dashboard',
-				element: <Dashboard />
-			}
-		]
-	},
-]
+import asyncRoutes from './asyncRoutes'
+
 
 const Router = () => {
 	return useRoutes([

@@ -24,7 +24,7 @@ const Login = () => {
 				<img src={LonginSvg} alt=""/>
 			</div>
 			<div className="login-form">
-				<div className="login-form-title">弄因茶油后台管理系统</div>
+				<div className="login-form-title">弄因农产品后台管理系统</div>
 				<Form
 					name="basic"
 					initialValues={{ remember: true }}

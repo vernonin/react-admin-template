@@ -1,5 +1,7 @@
-import { Menu, Dropdown, Space } from 'antd';
+import { Menu, Dropdown, Space, Layout } from 'antd';
 import { DownOutlined, SmileOutlined, LogoutOutlined } from '@ant-design/icons';
+
+const { Header } = Layout
 
 const menu = (
   <Menu
@@ -25,16 +27,19 @@ const menu = (
 )
 const HeaderNav = () => {
 	return (
-		<div className="layout-header-content">
-			 <Dropdown overlay={menu}>
-				<a onClick={e => e.preventDefault()} href={'/'}>
-					<Space>
-						设 置
-						<DownOutlined />
-					</Space>
-				</a>
-			</Dropdown>
-		</div>
+		<Header className='layout-header'>
+			<div className="layout-header-content">
+				<Dropdown overlay={menu}>
+					<a onClick={e => e.preventDefault()} href={'/'}>
+						<Space>
+							设 置
+							<DownOutlined />
+						</Space>
+					</a>
+				</Dropdown>
+			</div>	
+		</Header>
+		
 	)
 }
 
