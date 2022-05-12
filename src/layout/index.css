@@ -28,6 +28,9 @@
 
 /* 头部 */
 .layout-header-content{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	text-align: right;
 	color: aquamarine;
 	padding: 0 40px;
