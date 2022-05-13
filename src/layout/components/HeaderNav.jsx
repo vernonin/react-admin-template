@@ -30,7 +30,7 @@ const menu = (
 )
 const HeaderNav = () => {
 
-	const [notice, setNotice] = useState([
+	const [notice] = useState([
 		'风急天高猿啸哀，渚清沙白鸟飞回。',
 		'无边落木萧萧下，不尽长江滚滚来。',
 		'万里悲秋常作客，百年多病独登台。',
@@ -40,7 +40,7 @@ const HeaderNav = () => {
 	return (
 		<Header className='layout-header'>
 			<div className="layout-header-content">
-				<Notice notices={notice}/>
+				{/* <Notice notices={notice}/> */}
 				<Dropdown overlay={menu}>
 					<a onClick={e => e.preventDefault()} href={'/'}>
 						<Space>

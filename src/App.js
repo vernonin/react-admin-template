@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
 	console.info(`%c ${author}`, 'color: blue')
-	console.info(`%c ${beauty}`, 'color: red')
+	// console.info(`%c ${beauty}`, 'color: red')
 	return (
 		<div className="App">
 			<Routes>

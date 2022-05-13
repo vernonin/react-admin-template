@@ -1,176 +1,153 @@
-import React, { useEffect } from "react"
-import axios from 'axios'
-import CensusCrad from './components/user/CensusCrad'
-import '../../mock/user'
-import { Table, Tag, Space, Button, Card, Input } from 'antd'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import axios from "axios"
+import React, { useState, useEffect, useRef } from "react"
+import { Table, Space,Tag, Button, Card, Input, Modal } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+
+import UserFrom from './components/user/UserFrom'
+import CensusCrad from './components/user/CensusCrad'
+import ViewProfile from "./components/user/ViewProfile"
+import '../../mock/user'
+
 const { Search } = Input
 
 
-const columns = [
-  {
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text, record) => <a onClick={c => console.log('fs', record)}>{text}</a>,
-  },
-  {
-    title: '年龄',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: '住址',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: '角色',
-    key: 'tags',
-    dataIndex: 'tags',
-		width: 180,
-		align: 'center',
-    render: tags => (
-      <>
-        {tags.map(tag => {
-          let color = tag === '管理员' ? 'green' : 'geekblue'
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: '操作',
-    key: 'action',
-		align: 'center',
-		width: 200,
-    render: (text, record) => (
-      <Space size="middle">
-        <a onClick={e => console.log('修改', text, record)}>修改</a>
-        <a onClick={e => console.log('删除', text, record)}>删除</a>
-      </Space>
-    ),
-  },
-]
-
-const data = [
-  {
-    key: '1',
-    name: '李白',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['管理员'],
-  },
-  {
-    key: '2',
-    name: '杜甫',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-  {
-    key: '3',
-    name: '白居易',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-	{
-    key: '4',
-    name: '陶渊明',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-	{
-    key: '5',
-    name: '李白',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['管理员'],
-  },
-  {
-    key: '6',
-    name: '杜甫',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-  {
-    key: '7',
-    name: '白居易',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-	{
-    key: '8',
-    name: '陶渊明',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-	{
-    key: '9',
-    name: '李白',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-  {
-    key: '10',
-    name: '杜甫',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['管理员'],
-  },
-  {
-    key: '11',
-    name: '白居易',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-	{
-    key: '12',
-    name: '陶渊明',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['普通用户'],
-  },
-]
-
 const User = () => {
+	const columns = [
+		{
+			key: 'name',
+			title: '姓名',
+			dataIndex: 'name',
+			id: 'name',
+			// eslint-disable-next-line jsx-a11y/anchor-is-valid
+			render: (text, record) => <a onClick={() => onShow(record)}>{text}</a>,
+		},
+		{
+			key: 'sex',
+			title: '性别',
+			dataIndex: 'sex',
+			id: 'sex',
+			render: (text, record) => <span>{text}</span>,
+		},
+		{
+			key: 'birthday',
+			title: '出生日期',
+			dataIndex: 'birthday',
+			id: 'birthday',
+		},
+		{
+			key: 'address',
+			title: '地址',
+			dataIndex: 'address',
+			id: 'address',
+		},
+		
+		{
+			key: 'tag',
+			title: '角色',
+			dataIndex: 'tag',
+			id: 'tag',
+			render: text => (
+				<Tag color={text === '管理员' ? 'green' : 'orange'}>{text}</Tag>
+			)
+		},
+		{
+			key: 'action',
+			title: '操作',
+			id: 'action',
+			align: 'center',
+			width: 200,
+			render: (text, record) => (
+				<Space size="middle">
+					<a onClick={() => onEdit(record)}>修改</a>
+					<a style={{color: '#f40'}} onClick={() => onDelete(record)}>删除</a>
+				</Space>
+			),
+		},
+	]
+
+	const [users, setUsers] = useState([])
+
+	const [show, setShow] = useState(false)
+
+	const [isModal, setIsModal] = useState(false)
+
+	const [userInfo, setUserInfo] = useState({})
+
+	const userFrom = useRef()
 	
 	const getUsers = async () => {
 		const res = await axios.get('/mock/usermsg')
-		console.log(res.data)
+		const { list } = res.data
+		let users = list.map(item => ({...item, key: item.id}))
+		setUsers(users)
 	}
+
+	const admin = users.filter(user => user.tag.includes('管理员'))
+	const usersCensus = {total: users.length, admin: admin.length}
 
 	useEffect(() => {
 		getUsers()
 	}, [])
 
+	const handleOk = () => {
+		userFrom.current.submit()
+	}
+	const handleCancel = () => {
+		setIsModal(false)
+	}
+
+	const onShow = user => {
+		setShow(true)
+		setUserInfo(user)
+	}
+
+	const onEdit = user => {
+		setIsModal(true)
+
+		console.log(userFrom.current);
+		userFrom.current && userFrom.current.setFieldsValue({name: '黄琳',sex: '男'})
+	}
+	const onDelete = user => {
+		let newUsers = users.filter(item => item.id !== user.id)
+		
+		setUsers(newUsers)
+	}
+
 	const onSearch = value => {
-		let searchList = data.filter(user => user.name === value)
-		console.log(searchList)
+		if(value.trim() === '') {
+			return getUsers()
+		}
+		let searchList = users.filter(user => user.name === value)
+		setUsers(searchList)
+	}
+	const onSubmit = info => {
+		
+		const tag = info.tag ? '管理员' : '普通用户'
+
+		const user = {...info, tag, id: new Date(), key: new Date()}
+
+		setUsers([user, ...users])
+
+		setIsModal(false)
 
 	}
-	const admin = data.filter(user => user.tags.includes('管理员'))
-	const usersCensus = {total: data.length, admin: admin.length}
+
 	return (
 		<div>
-			<CensusCrad census={usersCensus}/>
+			<CensusCrad census={usersCensus} />
 			
 			<Card title="所有用户" extra={<Search placeholder="请输入名字" onSearch={onSearch} enterButton />}>
-				<Button block type="dashed" icon={<PlusOutlined />} >添加</Button>
+				<Button block type="dashed" icon={<PlusOutlined />} onClick={() => setIsModal(true)}>添加</Button>
 
-				<Table rowSelection={{type: 'checkbox'}} columns={columns} dataSource={data} />
+				<Table rowSelection={{type: 'checkbox'}} columns={columns} dataSource={users} />
 			</Card>
+
+			<ViewProfile visible={show} onClose={() => setShow(false)} info={userInfo}/>
+
+			<Modal width={600} title="添加用户" visible={isModal} onOk={handleOk} onCancel={handleCancel}>
+				<UserFrom onSubmit={onSubmit} ref={userFrom} />
+			</Modal>
 		</div>
 	)
 }
