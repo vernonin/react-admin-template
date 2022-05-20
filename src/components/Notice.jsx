@@ -19,8 +19,8 @@ const Notice = props => {
 						background: 'transparent',
 					}
 					return (
-						<div>
-							<p key={item} style={contentStyle}>{ item }</p>
+						<div key={item}>
+							<p style={contentStyle}>{ item }</p>
 						</div>
 					)
 				})

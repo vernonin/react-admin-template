@@ -66,13 +66,13 @@ const User = () => {
 		},
 	]
 
-	const [users, setUsers] = useState([])
+	const [users, setUsers] = useState([])        // 用户数据列表
 
-	const [show, setShow] = useState(false)
+	const [show, setShow] = useState(false)       // 查看用户弹框开关
 
-	const [isModal, setIsModal] = useState(false)
+	const [isModal, setIsModal] = useState(false) // 添加用户弹框开关
 
-	const [userInfo, setUserInfo] = useState({})
+	const [userInfo, setUserInfo] = useState({})  // 单个用户信息
 
 	const userFrom = useRef()
 	
@@ -105,9 +105,24 @@ const User = () => {
 	const onEdit = user => {
 		setIsModal(true)
 
-		console.log(userFrom.current);
-		userFrom.current && userFrom.current.setFieldsValue({name: '黄琳',sex: '男'})
+		const { name, sex, phone, address, interest, tag } = user
+		
+
+		let admin = tag === '管理员' ? true : false
+		let userInfo = {
+			name,
+			sex,
+			phone,
+			address,
+			interest,
+			tag: admin
+		}
+
+		setTimeout(() => {
+			userFrom.current && userFrom.current.setFieldsValue(userInfo)
+		}, 500)
 	}
+	
 	const onDelete = user => {
 		let newUsers = users.filter(item => item.id !== user.id)
 		

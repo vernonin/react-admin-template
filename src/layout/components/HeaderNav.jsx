@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
-import { Menu, Dropdown, Space, Layout } from 'antd';
+import { Menu, Dropdown, Space, Layout } from 'antd'
+import { Link } from 'react-router-dom'
+
 import { DownOutlined, SmileOutlined, LogoutOutlined } from '@ant-design/icons'
 
 import Notice from '../../components/Notice'
 
 const { Header } = Layout
+
+const onLogout = () => {
+	console.log('退出登录做的一些操作...')
+}
 
 const menu = (
   <Menu
@@ -19,15 +25,16 @@ const menu = (
       },
       {
         label: (
-          <span>
+          <Link to={'/login'} onClick={onLogout}>
             退出登录
-          </span>
+          </Link>
         ),
 				icon: <LogoutOutlined />,
       }
     ]}
   />
 )
+
 const HeaderNav = () => {
 
 	const [notice] = useState([
@@ -40,7 +47,7 @@ const HeaderNav = () => {
 	return (
 		<Header className='layout-header'>
 			<div className="layout-header-content">
-				{/* <Notice notices={notice}/> */}
+				<Notice notices={notice}/>
 				<Dropdown overlay={menu}>
 					<a onClick={e => e.preventDefault()} href={'/'}>
 						<Space>

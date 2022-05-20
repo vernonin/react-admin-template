@@ -39,18 +39,6 @@ const Dashboard = () => {
 					<DemoArea />
 				</Col>
 			</Row>
-			<Row style={{height: '320px'}}>
-				<Col span={8}>
-					<DemoLine />
-				</Col>
-				<Col span={8}>
-					<SalesVolume />
-				</Col>
-				<Col span={8}>
-					<DemoArea />
-				</Col>
-			</Row>
-			
 		</div>
 	)
 }
