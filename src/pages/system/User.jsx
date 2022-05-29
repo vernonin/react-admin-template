@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from "axios"
+import moment from 'moment'
 import React, { useState, useEffect, useRef } from "react"
 import { Table, Space,Tag, Button, Card, Input, Modal } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
@@ -11,6 +12,7 @@ import '../../mock/user'
 
 const { Search } = Input
 
+const dateFormat = 'YYYY-MM-DD'
 
 const User = () => {
 	const columns = [
@@ -105,17 +107,19 @@ const User = () => {
 	const onEdit = user => {
 		setIsModal(true)
 
-		const { name, sex, phone, address, interest, tag } = user
+		let { name, sex, phone, address, interest, tag, birthday } = user
 		
+		birthday = birthday ? birthday : '2000-06-22'
 
 		let admin = tag === '管理员' ? true : false
 		let userInfo = {
-			name,
-			sex,
-			phone,
-			address,
-			interest,
-			tag: admin
+			name: name ? name: '',
+			sex: sex ? sex: '',
+			phone: phone ? phone: '',
+			address: address ? address: '',
+			interest: interest ? interest: '',
+			birthday: moment(birthday, dateFormat),
+			tag: admin ? admin : ''
 		}
 
 		setTimeout(() => {
@@ -138,9 +142,13 @@ const User = () => {
 	}
 	const onSubmit = info => {
 		
+		let { birthday } = info
+
+		birthday = birthday.format(dateFormat)
+
 		const tag = info.tag ? '管理员' : '普通用户'
 
-		const user = {...info, tag, id: new Date(), key: new Date()}
+		const user = {...info, birthday, tag, id: new Date(), key: new Date()}
 
 		setUsers([user, ...users])
 
@@ -153,7 +161,7 @@ const User = () => {
 			<CensusCrad census={usersCensus} />
 			
 			<Card title="所有用户" extra={<Search placeholder="请输入名字" onSearch={onSearch} enterButton />}>
-				<Button block type="dashed" icon={<PlusOutlined />} onClick={() => setIsModal(true)}>添加</Button>
+				<Button block type="dashed" icon={<PlusOutlined />} onClick={onEdit}>添加</Button>
 
 				<Table rowSelection={{type: 'checkbox'}} columns={columns} dataSource={users} />
 			</Card>

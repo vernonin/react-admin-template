@@ -1,7 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 
-import ChinaMap from '../../components/charts/ChinaMap'
 import ClassifyPie from '../../components/charts/ClassifyPie'
 import PercentageBar from '../../components/charts/PercentageBar'
 import HotSpecialty from '../../components/charts/HotSpecialty'
@@ -17,11 +16,10 @@ const Dashboard = () => {
 		<div style={style}>
 			<Row>
 				<Col span={6}>
-					<HometownSpecialty />
 					<HotSpecialty />
 				</Col>
 				<Col span={12}>
-					<ChinaMap />
+				<HometownSpecialty />
 				</Col>
 				<Col span={6}>
 					<ClassifyPie />

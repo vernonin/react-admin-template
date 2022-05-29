@@ -1,20 +1,23 @@
 import React, { forwardRef } from "react";
 import { Form, Input, Select, DatePicker, Switch } from 'antd';
 
+const dateFormat = 'YYYY-MM-DD'
+
+const layout = {
+  labelCol: {
+    span: 4,
+  },
+  wrapperCol: {
+    span: 20,
+  },
+}
+
 const UserFrom = prop => {
 
 	const { forwardRef } = prop
 
-	const layout = {
-		labelCol: {
-			span: 4,
-		},
-		wrapperCol: {
-			span: 20,
-		},
-	};
+
 	/* eslint-disable no-template-curly-in-string */
-	
 	const validateMessages = {
 		required: '请输入${label}',
 	};
@@ -24,7 +27,13 @@ const UserFrom = prop => {
   }
 
 	return (
-		<Form ref={forwardRef} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+		<Form 
+      ref={forwardRef} 
+      {...layout} 
+      name="nest-messages"
+      onFinish={onFinish}
+      validateMessages={validateMessages}
+    >
       <Form.Item
         name={'name'}
         label="姓名"
@@ -47,7 +56,7 @@ const UserFrom = prop => {
         label="出生日期"
 				rules={[{required: true}]}
       >
-        <DatePicker format="YYYY-MM-DD" style={{width: '100%'}}/>
+        <DatePicker format={dateFormat} style={{width: '100%'}}/>
       </Form.Item>
       <Form.Item name={'phone'} label="电话号码" rules={[{required: true}]}>
         <Input />
