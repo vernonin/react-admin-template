@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { Menu, Dropdown, Space, Layout } from 'antd'
 import { Link } from 'react-router-dom'
 
-import { DownOutlined, SmileOutlined, LogoutOutlined } from '@ant-design/icons'
+import {
+	DownOutlined,
+	SmileOutlined,
+	LogoutOutlined,
+	GithubOutlined
+} from '@ant-design/icons'
 
 import Notice from '../../components/Notice'
 
@@ -10,6 +15,12 @@ const { Header } = Layout
 
 const onLogout = () => {
 	console.log('退出登录做的一些操作...')
+}
+
+const githubStyle = {
+	color: '#000',
+	marginRight: '12px',
+	fontSize: '18px'
 }
 
 const menu = (
@@ -47,17 +58,22 @@ const HeaderNav = () => {
 	])
 
 	return (
-		<Header className='layout-header'>
+		<Header style={{height: '48px'}} className='layout-header'>
 			<div className="layout-header-content">
 				<Notice notices={notice}/>
-				<Dropdown overlay={menu}>
-					<a onClick={e => e.preventDefault()} href={'/'}>
-						<Space>
-							设 置
-							<DownOutlined />
-						</Space>
+				<div>
+					<a style={githubStyle} target="_blank" rel="noopener noreferrer" href="https://github.com/vernonin/react-admin-template">
+						<GithubOutlined />
 					</a>
-				</Dropdown>
+					<Dropdown overlay={menu}>
+						<a onClick={e => e.preventDefault()} href={'/'}>
+							<Space>
+								设 置
+								<DownOutlined />
+							</Space>
+						</a>
+					</Dropdown>
+				</div>
 			</div>	
 		</Header>
 		

@@ -19,7 +19,7 @@ const index = () => {
 	return (
 		<Layout>
 			<SiderNav />
-				<Layout className='layout-content'>
+			<Layout className='layout-content'>
 				<HeaderNav/>
 				<Content className='layout-content-over'>
 					<Suspense fallback={<Loading />}>
@@ -31,6 +31,5 @@ const index = () => {
     </Layout>
 	)
 }
-
 
 export default index

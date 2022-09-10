@@ -5,7 +5,7 @@ const Notice = props => {
 	
 	const { notices } = props
 	return (
-		<Carousel autoplay dotPosition="right" dots={false} style={{width: '520px', height: '40px'}}>
+		<Carousel autoplay dotPosition="right" dots={false} style={{width: '520px', height: '30px'}}>
 			{
 				notices.map(item => {
 					const contentStyle = {

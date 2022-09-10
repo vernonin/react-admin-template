@@ -4,6 +4,8 @@
 
 .layout-content-over{
 	overflow-y: scroll;
+	padding: 20px;
+	box-sizing: border-box;
 }
 /* 自定义滚动条 */
 .layout-content-over::-webkit-scrollbar {
@@ -32,8 +34,10 @@
 	justify-content: space-between;
 	align-items: center;
 	text-align: right;
-	color: aquamarine;
+	height: 48px;
 	padding: 0 40px;
+	overflow: hidden;
+	box-sizing: border-box;
 	background-color: #ddd;
 }
 
@@ -45,9 +49,10 @@
 }
 
 .layout-footer-content{
-	height: 42px;
+	height: 42;
 	color: #555;
 	font-weight: 600;
+	box-sizing: border-box;
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	background-color: lightgrey;
 }
@@ -63,7 +68,7 @@
 
 /* 加载中 */
 .loading{
-	height: 200px;
+	height: 400px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

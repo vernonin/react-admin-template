@@ -4,9 +4,7 @@ import { Statistic, Row, Col } from 'antd'
 
 const Container = styled.div`
 	text-align: center;
-	margin: 20px 10px;
-	padding: 10px 0px;
-	background: #f0f2f5;
+	margin-bottom: 12px;
 `
 
  const CensusCrad = props => {

@@ -3,7 +3,7 @@ import axios from "axios"
 import moment from 'moment'
 import React, { useState, useEffect, useRef } from "react"
 import { Table, Space,Tag, Button, Card, Input, Modal } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import UserFrom from './components/user/UserFrom'
 import CensusCrad from './components/user/CensusCrad'
@@ -21,6 +21,7 @@ const User = () => {
 			title: '姓名',
 			dataIndex: 'name',
 			id: 'name',
+			align: 'center',
 			// eslint-disable-next-line jsx-a11y/anchor-is-valid
 			render: (text, record) => <a onClick={() => onShow(record)}>{text}</a>,
 		},
@@ -29,6 +30,7 @@ const User = () => {
 			title: '性别',
 			dataIndex: 'sex',
 			id: 'sex',
+			align: 'center',
 			render: (text, record) => <span>{text}</span>,
 		},
 		{
@@ -36,12 +38,14 @@ const User = () => {
 			title: '出生日期',
 			dataIndex: 'birthday',
 			id: 'birthday',
+			align: 'center',
 		},
 		{
 			key: 'address',
 			title: '地址',
 			dataIndex: 'address',
 			id: 'address',
+			align: 'center',
 		},
 		
 		{
@@ -49,6 +53,7 @@ const User = () => {
 			title: '角色',
 			dataIndex: 'tag',
 			id: 'tag',
+			align: 'center',
 			render: text => (
 				<Tag color={text === '管理员' ? 'green' : 'orange'}>{text}</Tag>
 			)
@@ -58,11 +63,11 @@ const User = () => {
 			title: '操作',
 			id: 'action',
 			align: 'center',
-			width: 200,
+			width: 180,
 			render: (text, record) => (
 				<Space size="middle">
-					<a onClick={() => onEdit(record)}>修改</a>
-					<a style={{color: '#f40'}} onClick={() => onDelete(record)}>删除</a>
+					<Button type="link" icon={<EditOutlined />} onClick={() => onEdit(record)}>修改</Button >
+					<Button danger type="text" icon={<DeleteOutlined />} onClick={() => onDelete(record)}>删除</Button >
 				</Space>
 			),
 		},
