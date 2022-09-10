@@ -11,9 +11,9 @@ const { Sider } = Layout
 const titleStyle = {
 	height: '48px',
 	lineHeight: '48px',
-	fontWeight: '600', 
+	fontWeight: '600',
 	fontSize: '20px',
-	fontFamily: '楷体', 
+	fontFamily: '楷体',
 	color: 'lightblue',
 	textAlign: 'center',
 	overflow: 'hidden'
@@ -61,6 +61,5 @@ const SiderNav = () => {
 		</Sider>
 	)
 }
-
 
 export default SiderNav

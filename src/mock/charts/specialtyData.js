@@ -1,23 +1,28 @@
 const getSpecialty = _  => [{
+    "x": "稻谷",
+    "value": 92700000,
+    "category": "asia"
+  }, {
   "x": "板栗",
-  "value": 1383220000,
+  "value": 206459000,
+  "category": "asia"
+}, 
+{
+  "x": "甘蔗",
+  "value": 176459000,
   "category": "asia"
 }, {
-  "x": "茶油",
-  "value": 196459000,
+  "x": "桃子",
+  "value": 51446201,
   "category": "asia"
-}, {
-  "x": "枇杷",
-  "value": 191836000,
-  "category": "africa"
-}, {
-  "x": "梨子",
-  "value": 162459000,
-  "category": "asia"
-}, {
-  "x": "李子",
-  "value": 146804372,
+},{
+  "x": "玉米",
+  "value": 246459000,
   "category": "europe"
+}, {
+  "x": "鸭子",
+  "value": 93013300,
+  "category": "africa"
 }, {
   "x": "柚子",
   "value": 126790000,
@@ -26,6 +31,16 @@ const getSpecialty = _  => [{
   "x": "柑橘",
   "value": 123518000,
   "category": "america"
+},
+{
+  "x": "红枣",
+  "value": 80135400,
+  "category": "asia"
+}, 
+{
+  "x": "茶油",
+  "value": 196459000,
+  "category": "asia"
 }, {
   "x": "土猪",
   "value": 104345000,
@@ -34,117 +49,34 @@ const getSpecialty = _  => [{
   "x": "土鸡",
   "value": 104037000,
   "category": "asia"
-}, {
-  "x": "鸭子",
-  "value": 93013300,
+}, 
+{
+  "x": "枇杷",
+  "value": 191836000,
   "category": "africa"
 }, {
-  "x": "稻谷",
-  "value": 92700000,
-  "category": "asia"
-}, {
-  "x": "玉米",
-  "value": 82800000,
+  "x": "李子",
+  "value": 146804372,
   "category": "europe"
-}, {
-  "x": "核桃",
-  "value": 82243000,
-  "category": "africa"
-}, {
-  "x": "红枣",
-  "value": 80135400,
-  "category": "asia"
 }, {
   "x": "香蕉",
   "value": 79814871,
   "category": "asia"
-}, {
-  "x": "西瓜",
-  "value": 68298000,
-  "category": "asia"
-}, {
-  "x": "红薯",
-  "value": 67013000,
-  "category": "europe"
-}, {
-  "x": "酸笋",
-  "value": 65110000,
-  "category": "europe"
-}, {
+},  {
   "x": "竹笋",
   "value": 60599936,
   "category": "europe"
 }, {
-  "x": "芋头",
-  "value": 56878000,
-  "category": "africa"
-}, {
-  "x": "黄瓜",
-  "value": 55908000,
-  "category": "africa"
-}, {
-  "x": "南瓜",
-  "value": 54836000,
-  "category": "asia"
-}, {
-  "x": "桃子",
-  "value": 51446201,
-  "category": "asia"
-}, {
-  "x": "萝卜",
-  "value": 49224700,
-  "category": "america"
-}, {
-  "x": "花生",
-  "value": 48467000,
-  "category": "africa"
-}, {
-  "x": "鹅",
-  "value": 46812000,
+  "x": "生姜",
+  "value": 216459000,
   "category": "europe"
-}, {
-  "x": "大豆",
-  "value": 43850000,
-  "category": "america"
-}, {
-  "x": "姜",
-  "value": 442541633,
-  "category": "europe"
-}, {
-  "x": "葵花籽",
-  "value": 42176000,
-  "category": "africa"
 }, {
   "x": "蜜蜂",
   "value": 41653000,
   "category": "africa"
-}, {
-  "x": "马峰",
-  "value": 41064000,
-  "category": "africa"
-}, {
-  "x": "蜂蜜",
-  "value": 38424000,
-  "category": "europe"
-}, {
-  "x": "柳条",
-  "value": 27883543,
-  "category": "asia"
-}, {
-  "x": "山药",
-  "value": 16541000,
-  "category": "america"
-}, {
-  "x": "山楂",
-  "value": 34317500,
-  "category": "africa"
-}, {
-  "x": "树根",
-  "value": 13710021,
-  "category": "asia"
-}, {
-  "x": "甘蔗",
-  "value": 532121000,
+},  {
+  "x": "梨子",
+  "value": 162459000,
   "category": "asia"
 }]
 
