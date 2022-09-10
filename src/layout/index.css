@@ -23,11 +23,6 @@
 }
 
 
-/* 左侧菜单 */
-.layout-sider{
-	background-color: aqua;
-}
-
 /* 头部 */
 .layout-header-content{
 	display: flex;
