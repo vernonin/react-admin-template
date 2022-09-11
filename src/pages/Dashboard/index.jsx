@@ -114,12 +114,13 @@ const Dashboard = () => {
 			</Row>
 			<Card size="small" style={{marginTop: '20px'}} title="主要特产的产量">
 				<Row>
-					<Col span={6}>
-						<HometownSpecialty />
-					</Col>
 					<Col span={18}>
 						<YieldColumn />
 					</Col>
+					<Col span={6}>
+						<HometownSpecialty />
+					</Col>
+					
 				</Row>
 			</Card>
 		</div>
