@@ -9,6 +9,7 @@ import salesList from '../../mock/charts/salesList'
 
 import BanarCard from '../../components/BanarCard'
 import DemoArea from '../../components/charts/DemoArea'
+import DemoBullet from '../../components/charts/YieldBullet'
 import YieldColumn from '../../components/charts/YieldColumn'
 import HometownSpecialty from '../../components/charts/HometownSpecialty'
 
@@ -59,13 +60,19 @@ const indexStyle = index => {
 }
 
 const Dashboard = () => {
-	const { totalSales } = indexBanar()
+	const { totalSales, totalYields, totalExports, targetYields } = indexBanar()
 	const [ saleTop, setSaleTop ] = useState([])
 	const [ totalSale, setTotalSale ] = useState({})
+	const [ totalYield, setTotalYield ] = useState({})
+	const [ totalExport, setTotalExport ] = useState({})
+	const [ targetYield, setTargetYield ] = useState({})
 
 	useEffect(() => {
 		setSaleTop(salesList())
 		setTotalSale(totalSales)
+		setTotalYield(totalYields)
+		setTotalExport(totalExports)
+		setTargetYield(targetYields)
 	}, [])
 
 	return (
@@ -82,9 +89,36 @@ const Dashboard = () => {
 						<span>日同比：{<ArrowUpOutlined style={{color: "#52c41a"}} />}{totalSale.dailyGrowth}</span>
 					</div>
 				</BanarCard>
-				<BanarCard />
-				<BanarCard />
-				<BanarCard />
+				<BanarCard
+					title={totalYield.totalName}
+					value={`${formatPrice(totalYield.totalYield)} t`}
+					subtitle={totalYield.yearName}
+					subvalue=	{`${formatPrice(totalYield.yearYield)} t`}
+				>
+					<div style={{...banarStyle, height: '100%', fontSize: '14px'}}>
+						<span>年同比：{<ArrowUpOutlined style={{color: "#52c41a"}} />}{totalYield.yearGrowth}</span>
+						<span>季度同比：{<ArrowUpOutlined style={{color: "#52c41a"}} />}{totalYield.quarterGrowth}</span>
+					</div>
+				</BanarCard>
+				<BanarCard
+					title={totalExport.totalName}
+					value={`${formatPrice(totalExport.totalYield)} t`}
+					subtitle={totalExport.yearName}
+					subvalue=	{`${formatPrice(totalExport.yearYield)} t`}
+				>
+					<div style={{...banarStyle, height: '100%', fontSize: '14px'}}>
+						<span>年同比：{<ArrowDownOutlined style={{color: "#f5222d"}} />}{totalExport.yearGrowth}</span>
+						<span>季度同比：{<ArrowDownOutlined style={{color: "#f5222d"}} />}{totalExport.quarterGrowth}</span>
+					</div>
+				</BanarCard>
+				<BanarCard
+					title={targetYield.name}
+					value={targetYield.proportion}
+					subtitle={`计划产量 ${formatPrice(targetYield.target)}t`}
+					subvalue={`实际产量 ${formatPrice(targetYield.value)}t`}
+				>
+					<DemoBullet />
+				</BanarCard>
 			</div>
 			<Row gutter={14} style={{height: '320px', marginTop: '20px'}}>
 				<Col span={16}>
