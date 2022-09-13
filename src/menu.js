@@ -9,7 +9,7 @@ import { FundProjectionScreenOutlined, SettingOutlined } from '@ant-design/icons
 const menu = [
 	{
 		label: '首页',
-		key: '/app/dashboard',
+		key: '/dashboard',
 		icon: <FundProjectionScreenOutlined />,
 	},
 	{

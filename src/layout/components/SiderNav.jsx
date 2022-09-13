@@ -30,7 +30,6 @@ const SiderNav = () => {
 
 	const [parent] = useParentRoute(current)
 
-
 	
 	const onMenu = event => {
 		setCurrent(event.key)

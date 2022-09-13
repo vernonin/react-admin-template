@@ -12,10 +12,10 @@ const Router = () => {
 	return useRoutes([
 		{
 			path: '/',
-			element: <Navigate to="/app/dashboard" />
+			element: <Navigate to="/dashboard" />
 		},
 		{
-			path: '/app',
+			path: '/',
 			element: <Layout />
 		},
 		{

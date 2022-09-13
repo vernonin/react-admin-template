@@ -5,13 +5,13 @@ const User = lazy(() => import('../pages/system/User'))
 
 const asyncRoutes = [
 	{
-		path: '/app',
+		path: '/',
 		element: <Layout />,
 		children: [
 			{
 				path: 'dashboard',
 				element: <Dashboard />,
-				meta: { title: '首页', path: '/app/dashboard' }
+				meta: { title: '首页', path: '/dashboard' }
 			}
 		]
 	},

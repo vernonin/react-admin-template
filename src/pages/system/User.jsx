@@ -2,7 +2,7 @@
 import axios from "axios"
 import moment from 'moment'
 import React, { useState, useEffect, useRef } from "react"
-import { Table, Space,Tag, Button, Card, Input, Modal } from 'antd'
+import { Table, Space,Tag, Button, Card, Input, Modal, Popconfirm } from 'antd'
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import UserFrom from './components/user/UserFrom'
@@ -67,7 +67,15 @@ const User = () => {
 			render: (text, record) => (
 				<Space size="middle">
 					<Button type="link" icon={<EditOutlined />} onClick={() => onEdit(record)}>修改</Button >
-					<Button danger type="text" icon={<DeleteOutlined />} onClick={() => onDelete(record)}>删除</Button >
+					<Popconfirm
+						placement="topRight"
+						title="确定删除该用户吗？"
+						onConfirm={() => onDelete(record)}
+						okText="确定"
+						cancelText="取消"
+					>
+						<Button danger type="text" icon={<DeleteOutlined />}>删除</Button >
+				</Popconfirm>
 				</Space>
 			),
 		},
