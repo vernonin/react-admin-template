@@ -1,9 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
 
 import 'antd/dist/antd.min.css'
-import './index.css';
+import './index.css'
+
+// markdown插件的样式
+import 'react-mde/lib/styles/css/react-mde-all.css'
 
 ReactDOM.render(
   <React.StrictMode>

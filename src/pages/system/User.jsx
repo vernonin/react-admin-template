@@ -63,7 +63,7 @@ const User = () => {
 			title: '操作',
 			id: 'action',
 			align: 'center',
-			width: 180,
+			width: 120,
 			render: (text, record) => (
 				<Space size="middle">
 					<Button type="link" icon={<EditOutlined />} onClick={() => onEdit(record)}>修改</Button >

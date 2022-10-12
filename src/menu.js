@@ -4,7 +4,11 @@
  * label: 菜单名称
  * children：子菜单
  */
-import { FundProjectionScreenOutlined, SettingOutlined } from '@ant-design/icons'
+import {
+	SettingOutlined,
+	FileProtectOutlined,
+	FundProjectionScreenOutlined
+ } from '@ant-design/icons'
 
 const menu = [
 	{
@@ -27,6 +31,21 @@ const menu = [
 			}
 		]
 	},
+	{
+		label: '文档',
+		key: '/awesome',
+		icon: <FileProtectOutlined />,
+		children: [
+			{
+				label: 'Markdown',
+				key: '/awesome/markdown'
+			},
+			{
+				label: 'Excel',
+				key: '/awesome/excel'
+			}
+		]
+	}
 ]
 
 export default menu
