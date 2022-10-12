@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Layout } from 'antd'
@@ -30,9 +30,11 @@ const SiderNav = () => {
 
 	const [parent] = useParentRoute(current)
 
+	useEffect(() => {
+		setCurrent(location.pathname)
+	}, [location.pathname])
 	
 	const onMenu = event => {
-		setCurrent(event.key)
 		navigate(event.key)
 	}
 
@@ -53,6 +55,7 @@ const SiderNav = () => {
 						mode={"inline"}
 						items={menu}
 						defaultOpenKeys={[parent]}
+						selectedKeys={[current]}
 						defaultSelectedKeys={[current]}
 					/>
 				</>

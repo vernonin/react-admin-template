@@ -28,7 +28,7 @@ const DemoArea = () => {
       },
     },
     color: ['#1979C9', '#D62A0D', '#FAA219', '#9400D3'],
-    smooth: true,
+    // smooth: true,
     // @TODO 后续会换一种动画方式
     animation: {
       appear: {
