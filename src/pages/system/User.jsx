@@ -8,7 +8,7 @@ import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import UserFrom from './components/user/UserFrom'
 import CensusCrad from './components/user/CensusCrad'
 import ViewProfile from "./components/user/ViewProfile"
-import '../../mock/user'
+import '../../mock'
 
 const { Search } = Input
 
