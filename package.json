@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.20.5",
     "axios": "^0.26.1",
-    "js-export-excel": "^1.1.4",
     "mockjs": "^1.1.0",
     "pubsub-js": "^1.9.4",
     "react": "^17.0.2",
@@ -19,7 +18,8 @@
     "react-scripts": "5.0.0",
     "showdown": "^2.1.0",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

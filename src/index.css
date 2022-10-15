@@ -16,3 +16,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.fdsf {
+  margin: 0 auto;
+  border: 1px dashed;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
