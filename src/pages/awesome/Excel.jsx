@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from 'react'
 
-import { Card, Table, Tag, Button, message  } from 'antd'
+import { UploadOutlined } from '@ant-design/icons';
+import { Card, Table, Tag, Modal, Button,Upload, message  } from 'antd'
 import '../../mock'
 import axios from 'axios'
-import exExcel from '../../utils/exExcel'
+import { importExcel, downloadExcel } from '../../utils/handleXlsx';
+
+
+const dataMap = {
+  '姓名': 'name',
+  '性别': 'sex',
+  '地址': 'address',
+  '角色': 'tag',
+  '出生日期': 'birthday'
+} 
+
+const uploadStyled = {
+  width: '400px',
+  height: '140px',
+  margin: '0 auto',
+  border: '1px dashed pink',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  cursor: 'pointer'
+}
 
 const columns = [
   {
@@ -50,27 +71,22 @@ const columns = [
 
 const Excel = () => {
   const [data, setData] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
   const [btnLaoding, setBtnLoading] = useState(false)
 
   // 导出Excel
   const exportExcel = async () => {
+
+    
+
     setBtnLoading(true)
     try {
-      // ['姓名', '性别', '出生日期', '地址', '角色']
-      const header = columns.map(user => user.title)
-
-      const filter = ['name', 'sex', 'birthday', 'address', 'tag']
-
-      await exExcel('用户表', header, filter, data)
+      await downloadExcel('用户表', data)
     }
     catch {
       message.error('导出失败！')
     }
     setBtnLoading(false)
-  }
-
-  const importExcel = () => {
-    console.log('import')
   }
 
   const fetchData = async () => {
@@ -85,17 +101,59 @@ const Excel = () => {
     fetchData()
   }, [])
 
+  const props = {
+    beforeUpload: (file) => {
+      handleOk(file)
+      return false;
+    },
+  }
+
+  // 姓名：张三  =>  name: 张三，
+  const jsonData = (data) => {
+    return data.map(item => {
+      let obj = {}
+
+      for (let k in item) {
+        obj[dataMap[k]] = item[k]
+      }
+
+      return obj
+    })
+  }
+
+  const handleOk = async (file) => {
+    const result = await importExcel(file)
+
+    const data = jsonData(result)
+
+    setData(data.map(i => {
+      i.key = parseInt(Math.random() * 1000)
+
+      return i
+    }))
+
+    setModalOpen(false)
+  }
+
 	return (
-		<div>
+		<>
       <Card title={(
         <>
           <Button loading={btnLaoding} onClick={exportExcel} type="primary">导出Excel</Button>
-          <Button style={{marginLeft: '12px'}} onClick={importExcel} type="primary">导入Excel</Button>
+          <Button style={{marginLeft: '12px'}} onClick={() => setModalOpen(true)} type="primary">导入Excel</Button>
         </>
       )} bordered={false}>
         <Table columns={columns} dataSource={data} />
       </Card>
-    </div>
+
+      <Modal width="440px" title="上传Excel" visible={modalOpen} onOk={handleOk} onCancel={() => setModalOpen(false)}>
+          <Upload {...props}>
+        <div style={uploadStyled}>
+            <UploadOutlined style={{fontSize: '30px'}} />
+        </div>
+          </Upload>
+      </Modal>
+    </>
 	)
 }
 
