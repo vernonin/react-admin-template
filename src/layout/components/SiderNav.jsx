@@ -43,6 +43,7 @@ const SiderNav = () => {
 			collapsible
 			collapsed={menuCollape}
 			onCollapse={value => setMenuCollape(value)}
+			collapsedWidth={48}
 		>
 			<div>
 				<p style={titleStyle}>

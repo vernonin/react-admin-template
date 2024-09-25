@@ -2,6 +2,7 @@ import React, { lazy } from 'react'
 import Layout from '../layout'
 import Dashboard from '../pages/Dashboard'
 const User = lazy(() => import('../pages/system/User'))
+const Setting = lazy(() => import('../pages/system/Setting'))
 const MarkDown = lazy(() => import('../pages/awesome/MarkDown'))
 const Excel = lazy(() => import('../pages/awesome/Excel'))
 
@@ -26,6 +27,11 @@ const asyncRoutes = [
 				path: 'user',
 				element: <User />,
 				meta: { title: '首页', path: '/system/user' }
+			},
+			{
+				path: 'setting',
+				element: <Setting />,
+				meta: { title: '设置', path: '/system/setting' }
 			}
 		]
 	},
