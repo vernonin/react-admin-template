@@ -181,7 +181,7 @@ const User = () => {
 
 			<ViewProfile visible={show} onClose={() => setShow(false)} info={userInfo}/>
 
-			<Modal width={600} title="添加用户" visible={isModal} onOk={handleOk} onCancel={handleCancel}>
+			<Modal width={600} title="添加用户" open={isModal} onOk={handleOk} onCancel={handleCancel}>
 				<UserFrom onSubmit={onSubmit} ref={userFrom} />
 			</Modal>
 		</div>

@@ -1,9 +1,7 @@
 import { Carousel } from 'antd'
 import getRandomColor from '../utils/getRandomColor'
 
-const Notice = props => {
-	
-	const { notices } = props
+const Advert = ({ notices }) => {
 	return (
 		<Carousel autoplay dotPosition="right" dots={false} style={{width: '520px', height: '30px'}}>
 			{
@@ -29,4 +27,4 @@ const Notice = props => {
 	)
 }
 
-export default Notice
+export default Advert

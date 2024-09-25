@@ -1,19 +1,11 @@
 import React from 'react';
 
-import { Tooltip } from 'antd';
+import { Tooltip, Card  } from 'antd';
 import styled from 'styled-components'
+import { theme } from 'antd';
 
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
-const BanarStyle = styled.div`
-	width: 24%;
-	height: 160px;
-	padding: 0 20px;
-	padding-top: 15px;
-	border-radius: 6px;
-	box-sizing: border-box;
-	background-color: #fff;
- `
 const TitleStyle = styled.div`
 	color: #999;
 	font-size: 14px;
@@ -32,24 +24,30 @@ const FooterStyle = styled.div`
 `
 
 const BanarCard = props => {
-	const { title, subtitle, value, subvalue, children } = props
-	return ( 
-		<>
-			<BanarStyle>
-				<TitleStyle>
-					<span>{ title }</span>
-					<Tooltip title="你好呀！">
-						<QuestionCircleOutlined />
-					</Tooltip>
-				</TitleStyle>
-				<ValueStyle>{ value }</ValueStyle>
-				<div style={{height: '44px', overflow: 'hidden'}}>
-					{ children }
-				</div>
-				<FooterStyle>{ subtitle }&nbsp;&nbsp;{ subvalue }</FooterStyle>
-			</BanarStyle>
-		</>
-	)
+  const { title, subtitle, value, subvalue, children } = props
+  const { token: { colorBgBlur } } = theme.useToken()
+
+  return (
+    <>
+      <Card
+        styles={{
+          body: {paddingBottom: '6px'}
+        }}
+      >
+        <TitleStyle>
+          <span>{ title }</span>
+          <Tooltip title="你好呀！">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </TitleStyle>
+        <ValueStyle>{ value }</ValueStyle>
+        <div style={{height: '44px', overflow: 'hidden'}}>
+          { children }
+        </div>
+        <FooterStyle>{ subtitle }&nbsp;&nbsp;{ subvalue }</FooterStyle>
+      </Card>
+    </>
+  )
 }
 
 export default BanarCard

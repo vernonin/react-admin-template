@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function useBoolean (initState = '') {
+export default function useParentRoute (initState = '') {
 	const route = initState
 	const reg = /\/(\w+)$/
 	let parent = route.replace(reg, '')

@@ -10,6 +10,7 @@ const LoveIcon = styled.span`
 `
 
 const FooterNav = () => {
+
 	return (
 		<Footer className="layout-footer">
 			<div className="layout-footer-content">

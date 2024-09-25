@@ -4,7 +4,7 @@ import { Layout, Spin } from 'antd'
 import HeaderNav from './components/HeaderNav'
 import FooterNav from './components/FooterNav'
 import SiderNav from './components/SiderNav'
-
+import useBoolean from '../hooks/useBoolean';
 import './index.css'
 
 const { Content } = Layout
@@ -15,21 +15,23 @@ const Loading = () => (
 	</div>
 )
 
-const index = () => {
-	return (
-		<Layout>
-			<SiderNav />
-			<Layout className='layout-content'>
-				<HeaderNav/>
-				<Content className='layout-content-over'>
-					<Suspense fallback={<Loading />}>
-						<Outlet />
-					</Suspense>
-				</Content>
-				<FooterNav />
+const Index = () => {
+  const [menuCollape, { toggle }] = useBoolean(false)
+
+  return (
+    <Layout>
+      <SiderNav menuCollape={menuCollape} toggleCollapse={toggle} />
+      <Layout className='layout-content'>
+        <HeaderNav menuCollape={menuCollape} />
+        <Content style={{paddingTop: '64px'}} className='layout-content-over'>
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
+        </Content>
+        <FooterNav />
       </Layout>
     </Layout>
-	)
+  )
 }
 
-export default index
+export default Index

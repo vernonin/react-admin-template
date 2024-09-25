@@ -31,8 +31,8 @@ const saleTopStyle = {
 const banarStyle = {
 	display: 'flex',
 	justifyContent: 'space-between',
-	alignItems: 'center'
-
+	alignItems: 'center',
+	gap: '10px'
 }
 
 const indexStyle = index => {

@@ -17,7 +17,7 @@ const ViewProfile = (props) => {
 			placement="right"
 			closable={false}
 			onClose={props.onClose}
-			visible={props.visible}
+			open={props.visible}
 		>
 			<p className="site-description-item-profile-p" style={{ marginBottom: 24 }}>
 				用户信息
