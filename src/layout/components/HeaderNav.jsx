@@ -1,8 +1,12 @@
 import React, { useState, useMemo } from 'react'
 import { Menu, Dropdown, Space, Layout, theme } from 'antd'
 import { Link } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { toggleTheme } from '../../store/features/setting/settingSlice'
 import { colorWithAlpha } from '../../utils/common'
-import NavItem from './NavItem';
+import NavItem from './NavItem'
+import Notice from './Notice'
+import FullScreen from '../../components/FullScreen'
 
 import {
   DownOutlined,
@@ -10,20 +14,17 @@ import {
   LogoutOutlined,
   GithubOutlined,
   BellOutlined,
-  SunOutlined
+  SunOutlined,
+  MoonOutlined
 } from '@ant-design/icons'
 
 import Advert from '../../components/Advert'
 
-const { Header } = Layout
-
+const iconStyles = {
+  fontSize: '16px'
+}
 const onLogout = () => {
   console.log('退出登录做的一些操作...')
-}
-
-const githubStyle = {
-  color: '#000',
-  fontSize: '16px'
 }
 
 const menuItems = [
@@ -46,6 +47,8 @@ const menuItems = [
 ]
 
 const HeaderNav = ({ menuCollape }) => {
+  const appDispatch = useAppDispatch();
+  const setting = useAppSelector(state => state.setting);
 	const { token: { colorBgContainer, colorBorder } } = theme.useToken();
 
   const [notice] = useState([
@@ -61,9 +64,9 @@ const HeaderNav = ({ menuCollape }) => {
     return {
       position: 'fixed',
       top: '0',
-      left: menuCollape ? '48px' : '200px',
+      left: menuCollape ? setting.asideCollapeWidth + 'px' : setting.asideWidth + 'px',
       right: '0',
-      height: '48px',
+      height: setting.headerHeight + 'px',
       background: colorWithAlpha(colorBgContainer, 0.33),
       display: 'flex',
       justifyContent: 'space-between',
@@ -75,23 +78,35 @@ const HeaderNav = ({ menuCollape }) => {
       zIndex: '100',
       transition: 'all .3s ease',
     }
-  }, [menuCollape, colorBgContainer])
+  }, [setting, menuCollape, colorBgContainer])
 
 	return (
-    <Header style={styles}>
+    <Layout.Header  style={styles}>
       <Advert notices={notice} />
       <div style={{height: '100%', display: 'flex', alignItems: 'center'}}>
         <NavItem>
-          <SunOutlined style={{fontSize: '16px'}}/>
+          <FullScreen size="16px" />
+        </NavItem>
+        <NavItem onClick={() => appDispatch(toggleTheme())}>
+          {
+            setting.theme === 'dark'
+              ? <SunOutlined style={iconStyles} />
+              : <MoonOutlined style={iconStyles} />
+          }
         </NavItem>
         <NavItem>
-          <BellOutlined style={{fontSize: '16px'}}/>
+          <Dropdown
+            dropdownRender={() => <Notice />}
+            arrow
+            trigger={['click']}
+          >
+            <BellOutlined style={iconStyles} />
+          </Dropdown>
         </NavItem>
-        <NavItem>
-          <a style={githubStyle} target="_blank" rel="noopener noreferrer" href="https://github.com/vernonin/react-admin-template">
-            <GithubOutlined />
-          </a>
+        <NavItem onClick={() => window.open('https://github.com/vernonin/react-admin-template', '_blank')}>
+          <GithubOutlined style={iconStyles} />
         </NavItem>
+        &nbsp;
         <Dropdown menu={{ items: menuItems }}>
           <a onClick={e => e.preventDefault()} href={'/'}>
             <Space>
@@ -101,9 +116,8 @@ const HeaderNav = ({ menuCollape }) => {
           </a>
         </Dropdown>
       </div>
-    </Header>
+    </Layout.Header>
 	)
 }
-
 
 export default HeaderNav

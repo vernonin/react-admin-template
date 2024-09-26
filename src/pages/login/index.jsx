@@ -2,12 +2,14 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { useAppSelector } from '../../store/hooks'
 import LonginSvg from '../../icons/svg/login.svg'
 
 import './index.css'
 
 
 const Login = () => {
+  const systemName = useAppSelector(state => state.setting.systemName);
 
 	const navigate = useNavigate()
 
@@ -24,7 +26,7 @@ const Login = () => {
 				<img src={LonginSvg} alt=""/>
 			</div>
 			<div className="login-form">
-				<div className="login-form-title">弄因农产品后台管理系统</div>
+				<div className="login-form-title">{systemName}</div>
 				<Form
 					name="basic"
 					initialValues={{ remember: true }}

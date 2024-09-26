@@ -2,12 +2,14 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form, Input, Button, notification } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { useAppSelector } from '../../store/hooks'
 import RegisterSvg from '../../icons/svg/register.svg'
 
 import './index.css'
 
 
 const Register = () => {
+  const systemName = useAppSelector(state => state.setting.systemName);
 
 	const navigate = useNavigate()
 
@@ -30,7 +32,7 @@ const Register = () => {
 				<img src={RegisterSvg} alt=""/>
 			</div>
 			<div className="login-form">
-				<div className="login-form-title">弄因农产品后台管理系统</div>
+				<div className="login-form-title">{systemName}</div>
 				<Form
 					name="basic"
 					initialValues={{ remember: true }}

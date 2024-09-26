@@ -19,7 +19,7 @@ export default function NavItem({ children, onClick }) {
 
   function handleClick() {
     if (onClick && typeof onClick === 'function') {
-      handleClick();
+      onClick();
     }
   }
 

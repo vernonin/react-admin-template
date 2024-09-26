@@ -32,3 +32,29 @@ export function colorWithAlpha(hexColor, alpha) {
 export function formatPrice(value) {
   return `${value}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`);
 }
+
+/**
+ * 深拷贝
+ * @param {object} origin 源对象
+ */
+export function deepCopy(origin) {
+  if (typeof origin !== 'object' || typeof origin === null) {
+    return origin;
+  }
+
+  const copyObj = Array.isArray(origin) ? [] : {};
+
+  for (let key in origin) {
+    copyObj[key] = deepCopy(origin[key])
+  }
+
+  return copyObj;
+}
+
+export function getItemByStrong(key) {
+  return localStorage.getItem(key);
+}
+
+export function setItemByStrong(key, value) {
+  return localStorage.setItem(key, value);
+}

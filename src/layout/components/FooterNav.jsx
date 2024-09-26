@@ -2,8 +2,6 @@ import { Layout } from 'antd'
 import styled from 'styled-components'
 import { WechatOutlined, QqOutlined, GithubOutlined } from '@ant-design/icons'
 
-const { Footer } = Layout
-
 const LoveIcon = styled.span`
 	color: #f10;
 	font-size: 12px;
@@ -12,7 +10,7 @@ const LoveIcon = styled.span`
 const FooterNav = () => {
 
 	return (
-		<Footer className="layout-footer">
+		<Layout.Footer className="layout-footer">
 			<div className="layout-footer-content">
 				<p>MADE WITH BY <LoveIcon>❤</LoveIcon>HUANGLIN<LoveIcon>❤</LoveIcon></p>
 				<p className="layout-footer-contact">
@@ -25,7 +23,7 @@ const FooterNav = () => {
 					&nbsp;: <a href='https://github.com/vernonin' target="_blank" rel="noreferrer">https://github.com/vernonin</a>
 				</p>
 			</div>
-		</Footer>
+		</Layout.Footer>
 	)
 }
 

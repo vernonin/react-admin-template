@@ -3,17 +3,18 @@ import { Menu, theme, Typography } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Layout } from 'antd'
 import menu  from '../../menu'
+import { useAppSelector } from '../../store/hooks'
 import useParentRoute from '../../hooks/useParentRoute'
 import LogoSvg from '../../icons/svg/logo.svg'
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons'
 
-const { Sider } = Layout
 const titleStyle = {
   height: '48px',
   overflow: 'hidden',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  whiteSpace: 'nowrap'
 }
 
 const collapeIconStyle = {
@@ -25,6 +26,8 @@ const collapeIconStyle = {
 }
 
 const SiderNav = ({ menuCollape, toggleCollapse }) => {
+  const setting = useAppSelector(state => state.setting);
+
   const { token: { colorBgContainer, colorBorder } } = theme.useToken();
 
   const navigate = useNavigate()
@@ -44,11 +47,12 @@ const SiderNav = ({ menuCollape, toggleCollapse }) => {
   }
 
   return (
-    <Sider
+    <Layout.Sider
       collapsible
       collapsed={menuCollape}
       onCollapse={() => toggleCollapse()}
-      collapsedWidth={48}
+      width={setting.asideWidth}
+      collapsedWidth={setting.asideCollapeWidth}
       trigger={null}
       style={{
         background: colorBgContainer,
@@ -58,7 +62,7 @@ const SiderNav = ({ menuCollape, toggleCollapse }) => {
       <div style={{position: 'relative'}}>
         <div style={titleStyle}>
           <Typography.Title level={4}>
-            {menuCollape ? <img src={LogoSvg} alt=""/> : '弄因农产品后台'}
+            {menuCollape ? <img src={LogoSvg} alt=""/> : setting.systemName}
           </Typography.Title>
         </div>
         <>
@@ -81,7 +85,7 @@ const SiderNav = ({ menuCollape, toggleCollapse }) => {
           />
         </>
       </div>
-    </Sider>
+    </Layout.Sider>
   )
 }
 
