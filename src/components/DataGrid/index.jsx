@@ -7,6 +7,7 @@ import {
   defaultToolbarActions
 } from './defaultSetting';
 import Header from './Header';
+import DynamicIsland from '../../layout/components/DynamicIsland';
 
 const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
@@ -52,17 +53,36 @@ const DataGrid = (props) => {
     }))) : defaultSelections
   };
 
+  const fetchDelete = () => {
+    DynamicIsland.loading('删除中...')
+    setTimeout(() => {
+      DynamicIsland.success('删除成功！');
+    }, 2000);
+  }
+
+  const headerMethods = {
+    add() {
+      console.log('新增')
+    },
+    edit() {
+      console.log('编辑')
+    },
+    batchDel() {
+      if (selectedRowKeys.length < 1) {
+        DynamicIsland.warning('请先选择要删除的数据！')
+      } else {
+        DynamicIsland.confirm('确定要删除选中的数据吗？', {
+          duration: 4000,
+          onOk: () => fetchDelete()
+        })
+      }
+    },
+  }
+
   return (
     <div>
       <Header
-        methods={{
-          add() {
-            console.log('新增')
-          },
-          edit() {
-            console.log('编辑')
-          }
-        }}
+        methods={headerMethods}
         tools={defaultTableTools}
         toolbarActions={defaultToolbarActions}
       />

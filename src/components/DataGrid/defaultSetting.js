@@ -35,7 +35,7 @@ export const defaultToolbarActions = [
     icon: <ImportOutlined />
   },
   {
-    key: 'del',
+    key: 'batchDel',
     text: '批量删除',
     danger: true,
     icon: <DeleteOutlined />

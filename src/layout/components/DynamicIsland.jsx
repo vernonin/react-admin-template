@@ -1,30 +1,56 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { Button } from 'antd';
 import {
   SearchOutlined, CheckCircleTwoTone, CloseCircleTwoTone,
-  ExclamationCircleTwoTone, BellTwoTone, 
+  ExclamationCircleTwoTone, BellTwoTone, CloseOutlined,
+  CheckOutlined, LoadingOutlined
 } from '@ant-design/icons'
+import styled from 'styled-components'
 
-const DI_EVENT_KEY = 'di:event';
-
-const inputStyles = {
-  flex: 1,
-  border: 'none',
-  outline: 'none',
-  color: '#fff',
-  background: 'transparent',
-}
-
-const contentStyles = {
-  flex: 1,
-  display: 'flex',
-  alignItems: 'center',
-  fontSize: '0.96rem',
-  userSelect: 'none',
-  lineHeight: '1rem',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}
+const ConfirmDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const TextContent = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 0.88rem;
+  user-select: none;
+  line-height: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+const InputEle = styled.input`
+  flex: 1;
+  color: #fff;
+  border: none;
+  outline: none;
+  background: transparent;
+  &:hover {
+    overflow: visible;
+    white-space: normal;
+  }
+`
+const DynamicIslandWrapper = styled.div`
+  position: relative;
+  min-width: ${({ isExpand }) => (isExpand ? '320px' : '180px')};
+  max-width: ${({ isExpand }) => (isExpand ? '320px' : '180px')};
+  background: #1e293b;
+  backdrop-filter: blur(10px);
+  padding: 5px 10px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  color: #fff;
+  gap: 10px;
+  transition: all 0.28s ease-in-out;
+  box-sizing: border-box;
+  overflow: hidden;
+`;
 
 const iconMap = {
   search: <SearchOutlined />,
@@ -32,9 +58,12 @@ const iconMap = {
   warning: <ExclamationCircleTwoTone twoToneColor="#faad14" />,
   error: <CloseCircleTwoTone twoToneColor="#ff4d4f" />,
   info: <CheckCircleTwoTone twoToneColor="#1890ff" />,
-  notice: <BellTwoTone />
+  notice: <BellTwoTone />,
+  confirm: <ExclamationCircleTwoTone twoToneColor="#faad14" />,
+  loading: <LoadingOutlined style={{color:"#1890ff"}} /> 
 }
 
+const DI_EVENT_KEY = 'di:event';
 const dispatchCustomEvent = (type, options) => {
   const customEvent = new CustomEvent(DI_EVENT_KEY, {
     detail: { type, ...options },
@@ -47,25 +76,7 @@ export default function DynamicIsland() {
   const [message, setMessage] = useState('');
   const [type, setType] = useState('search');
   const timeoutRef = useRef(null);
-
-  const rootStyles = useMemo(() => {
-    return {
-      position: 'relative',
-      minWidth: isExpand ? '320px' : '180px',
-      maxWidth: isExpand ? '320px' : '180px',
-      background: '#1e293b',
-      backdropFilter: 'blur(10px)',
-      padding: '5px 10px',
-      height: '60%',
-      borderRadius: '10px',
-      display: 'flex',
-      color: '#fff',
-      gap: '10px',
-      transition: 'all 0.28s ease-in-out',
-      boxSizing: 'border-box',
-      overflow: 'hidden',
-    }
-  }, [isExpand])
+  const audioRef = useRef(null);
 
   function setInitalState() {
     setType('search')
@@ -82,50 +93,94 @@ export default function DynamicIsland() {
     setMessage(options.message || '')
     seIsExpand(true)
 
+    if (options.noClose) {
+      return;
+    }
     timeoutRef.current = setTimeout(() => {
       setInitalState()
     }, options.duration || 2000);
   }
 
-  useEffect(() => {
-    const handleEvent = (e) => {
-      const details = e.detail;
-      if(details && details.type && Object.keys(details).length > 0) {
-        if (details.sound) {
-          // 播放音频...
-          const audio = new Audio('/media/bone.mp3');
-          audio.play().catch(err => {
-            console.log('播放失败：', err)
-          })
-        }
+  const handleEvent = useCallback((e) => {
+    const details = e.detail;
 
-        changeContent(details.type, details);
-      }
+    if (details?.type === 'close') {
+      setInitalState();
+      return;
     }
 
+    if(details && details.type && Object.keys(details).length > 0) {
+      if (details.sound) {
+        // 播放音频...
+        audioRef.current?.play().catch(err => console.log('播放失败：', err))
+      }
+
+      changeContent(details.type, details);
+    }
+  }, [])
+
+  useEffect(() => {
+    audioRef.current = new Audio('/media/bone.mp3')
+  }, [])
+
+  useEffect(() => {
     window.addEventListener(DI_EVENT_KEY, handleEvent);
     return () => {
       window.removeEventListener(DI_EVENT_KEY, handleEvent)
     }
-  }, [])
+  }, [handleEvent])
 
   return (
-    <div style={rootStyles} onClick={() => setInitalState()}>
+    <DynamicIslandWrapper isExpand={isExpand} onClick={() => setInitalState()}>
       {iconMap[type]}
       {message ? (
-        <div style={{...contentStyles, color: type === 'error' ? '#ff4d4f' : 'unset'}}>
-          {message}
-        </div>
+        <TextContent>{ message }</TextContent>
       ) : (
-        <input
-          style={inputStyles}
+        <InputEle
           onFocus={() => seIsExpand(true)}
           onBlur={() => seIsExpand(false)}
           onClick={(e) => e.stopPropagation()}
         />
       )}
-    </div>
+    </DynamicIslandWrapper>
   )
+}
+
+const renderConfirmButton = (options) => (
+  <span>
+    <Button
+      ghost
+      shape="circle"
+      icon={<CloseOutlined style={{fontSize: '12px'}} />}
+      size="small"
+    />
+    <Button
+      ghost
+      style={{marginLeft: '10px', color: '#fff', background: '#0958d9', borderColor: '#0958d9'}}
+      type="primary"
+      shape="circle"
+      icon={<CheckOutlined style={{fontSize: '12px'}}/>}
+      size="small"
+      onClick={(e) => {
+        let stopPropagation = options.stopPropagation ?? true;
+        if (stopPropagation) {
+          e.stopPropagation()
+        }
+        if (typeof options.onOk === 'function') {
+          options.onOk()
+        }
+      }}
+    />
+  </span>
+)
+function createMessageHandler(type, defaultOptions, renderMsg) {
+  return (message, options) => {
+    dispatchCustomEvent(type, {
+      message: renderMsg ? renderMsg(message, options) : message,
+      ...defaultOptions,
+      ...options
+    })
+  }
 }
 
 /**
@@ -133,25 +188,25 @@ export default function DynamicIsland() {
  * @param {*} message 内容
  * @param {*} options {
  *   duration: 2000, // 持续时间
- *   sound: false, // 是否播放声音
+ *   sound: false, // 是否播放声音,
+ *   noClose: false, // 不关闭
+ *   stopPropagation: false, // 是否阻止冒泡
  * }
  */
-DynamicIsland.success = (message, options) => {
-  dispatchCustomEvent('success', { message, ...options });
-};
-
-DynamicIsland.warning = (message, options) => {
-  dispatchCustomEvent('warning', { message, ...options });
-};
-
-DynamicIsland.error = (message, options) => {
-  dispatchCustomEvent('error', { message, sound: true, ...options });
-};
-
-DynamicIsland.info = (message, options) => {
-  dispatchCustomEvent('info', { message, ...options });
-};
-
-DynamicIsland.notice = (message, options) => {
-  dispatchCustomEvent('notice', { message, sound: true, ...options });
-};
+DynamicIsland.close = createMessageHandler('close')
+DynamicIsland.loading = createMessageHandler('loading', { noClose: true })
+DynamicIsland.success = createMessageHandler('success')
+DynamicIsland.warning = createMessageHandler('warning')
+DynamicIsland.info = createMessageHandler('info')
+DynamicIsland.notice = createMessageHandler('notice', { sound: true })
+DynamicIsland.error = createMessageHandler('error', { sound: true },
+  (msg) => (<span style={{ color: '#ff4d4f' }}>{msg}</span>)
+)
+DynamicIsland.confirm = createMessageHandler('confirm', { sound: true },
+  (msg, options) => (
+    <ConfirmDiv>
+      <span>{msg}</span>
+      {renderConfirmButton(options)}
+    </ConfirmDiv>
+  )
+)

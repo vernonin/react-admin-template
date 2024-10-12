@@ -8,6 +8,7 @@ import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import UserFrom from './components/user/UserFrom'
 import CensusCrad from './components/user/CensusCrad'
 import ViewProfile from "./components/user/ViewProfile"
+import DynamicIsland from '../../layout/components/DynamicIsland';
 import '../../mock'
 
 const { Search } = Input
@@ -144,6 +145,7 @@ const User = () => {
 		let newUsers = users.filter(item => item.id !== user.id)
 		
 		setUsers(newUsers)
+		DynamicIsland.success('删除用户成功！')
 	}
 
 	const onSearch = value => {
@@ -166,7 +168,7 @@ const User = () => {
 		setUsers([user, ...users])
 
 		setIsModal(false)
-
+		DynamicIsland.success('添加用户成功！')
 	}
 
 	return (
