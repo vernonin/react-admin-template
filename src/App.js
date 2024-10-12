@@ -6,20 +6,17 @@ import { author } from './atternString'
 import Router from './router'
 import store from './store'
 import AppTheme from './theme';
-import './App.css';
 
 function App() {
 	console.info(`%c ${author}`, 'color: blue')
 	return (
-		<div className="App">
-			<Routes>
-				<Provider store={store}>
-					<AppTheme>
-						<Router />
-					</AppTheme>
-				</Provider>
-			</Routes>
-    </div>
+		<Routes>
+			<Provider store={store}>
+				<AppTheme>
+					<Router />
+				</AppTheme>
+			</Provider>
+		</Routes>
   );
 }
 

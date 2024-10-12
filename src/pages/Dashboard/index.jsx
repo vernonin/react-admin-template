@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Row, Col, Card } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
-
+import { useNavigate } from 'react-router-dom';
 import indexBanar from '../../mock/indexBanar'
 import formatPrice from '../../utils/formatPrice'
 import salesList from '../../mock/charts/salesList'
@@ -12,6 +12,7 @@ import DemoArea from '../../components/charts/DemoArea'
 import DemoBullet from '../../components/charts/YieldBullet'
 import YieldColumn from '../../components/charts/YieldColumn'
 import HometownSpecialty from '../../components/charts/HometownSpecialty'
+import DynamicIsland from '../../layout/components/DynamicIsland';
 
 const SaleRow = styled.div`
 	display: flex;
@@ -60,6 +61,7 @@ const indexStyle = index => {
 }
 
 const Dashboard = () => {
+	const navigator = useNavigate()
 	const { totalSales, totalYields, totalExports, targetYields } = indexBanar()
 	const [ saleTop, setSaleTop ] = useState([])
 	const [ totalSale, setTotalSale ] = useState({})
@@ -74,6 +76,15 @@ const Dashboard = () => {
 		setTotalExport(totalExports)
 		setTargetYield(targetYields)
 	}, [])
+
+	// useEffect(() => {
+	// 	DynamicIsland.notice(
+	// 		<div>
+	// 			您有新的订单，请及时处理。
+	// 			<a onClick={() => navigator('/awesome/markdown')}>详情</a>
+	// 		</div>, 4400
+	// 	)
+	// }, [])
 
 	return (
 		<div>
@@ -154,7 +165,6 @@ const Dashboard = () => {
 					<Col span={6}>
 						<HometownSpecialty />
 					</Col>
-					
 				</Row>
 			</Card>
 		</div>

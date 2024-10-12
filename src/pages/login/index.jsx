@@ -2,8 +2,10 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import DynamicIsland  from '../../layout/components/DynamicIsland'
 import { useAppSelector } from '../../store/hooks'
 import LonginSvg from '../../icons/svg/login.svg'
+
 
 import './index.css'
 
@@ -17,6 +19,16 @@ const Login = () => {
 		console.log('Success:', values)
 
 		navigate('/', { replace: true })
+		setTimeout(() => {
+			DynamicIsland.notice(
+				(<div style={{fontSize: '12px'}}>
+					<span>欢迎回来！</span>
+					<span>您上次登录时间：2021-09-01 12:00:00</span>
+				</div>), {
+					duration: 3000
+				}
+			)
+		}, 500)
 	}
 
 	return (

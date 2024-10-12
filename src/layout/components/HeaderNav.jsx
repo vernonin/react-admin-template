@@ -1,9 +1,11 @@
 import React, { useState, useMemo } from 'react'
-import { Menu, Dropdown, Space, Layout, theme } from 'antd'
+import { Dropdown, Space, Layout, theme } from 'antd'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { toggleTheme } from '../../store/features/setting/settingSlice'
 import { colorWithAlpha } from '../../utils/common'
+
+import DynamicIsland from './DynamicIsland'
 import NavItem from './NavItem'
 import Notice from './Notice'
 import FullScreen from '../../components/FullScreen'
@@ -81,8 +83,9 @@ const HeaderNav = ({ menuCollape }) => {
   }, [setting, menuCollape, colorBgContainer])
 
 	return (
-    <Layout.Header  style={styles}>
+    <Layout.Header style={styles}>
       <Advert notices={notice} />
+      <DynamicIsland />
       <div style={{height: '100%', display: 'flex', alignItems: 'center'}}>
         <NavItem>
           <FullScreen size="16px" />
