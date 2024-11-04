@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Table } from 'antd';
 
+
+import Header from './Header';
+import BatchImport from './BatchImport'
+import DynamicIsland from '../../layout/components/DynamicIsland';
 import {
   defaultSelections,
   defaultTableTools,
   defaultToolbarActions
 } from './defaultSetting';
-import Header from './Header';
-import DynamicIsland from '../../layout/components/DynamicIsland';
 
 const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
@@ -16,10 +18,13 @@ const onChange = (pagination, filters, sorter, extra) => {
 const DataGrid = (props) => {
   // 解构props
   const { data, columns, quickSelections, toolbarActions } = props;
+
+  const [openBatchImport, setOpenBatchImport] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableData, setTableData] = useState(
     () => data ?? [],
   )
+
   const [tableColumns] = useState(() => {
     if (Array.isArray(toolbarActions) && toolbarActions.length > 0) {
       return columns.concat({
@@ -56,6 +61,7 @@ const DataGrid = (props) => {
   const fetchDelete = () => {
     DynamicIsland.loading('删除中...')
     setTimeout(() => {
+      setTableData(tableData.filter(item => !selectedRowKeys.includes(item.id)))
       DynamicIsland.success('删除成功！');
     }, 2000);
   }
@@ -66,6 +72,10 @@ const DataGrid = (props) => {
     },
     edit() {
       console.log('编辑')
+    },
+    import() {
+      // setOpenBatchImport(true);
+      DynamicIsland.warning((<a onClick={() => setOpenBatchImport(true)}>点击上次</a>), { duration: 4000 })
     },
     batchDel() {
       if (selectedRowKeys.length < 1) {
@@ -93,6 +103,8 @@ const DataGrid = (props) => {
         onChange={onChange}
         rowSelection={rowSelection}
       />
+
+      <BatchImport open={openBatchImport} onClose={() => setOpenBatchImport(false)} />
     </div>
   );
 };

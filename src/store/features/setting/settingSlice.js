@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { getItemByStrong, setItemByStrong } from '../../../utils/common'
 
 const initialState = {
+  token: getItemByStrong('token') || '',
   theme: getItemByStrong('light') || 'light',
   systemName: getItemByStrong('systemName') || 'React Admin Template',
   headerHeight: getItemByStrong('headerHeight') || 58,
@@ -28,13 +29,17 @@ export const settingSlice = createSlice({
     setAsideWidth: (state, action) => {
       state.asideWidth = action.payload;
       setItemByStrong('asideWidth', action.payload);
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
+      setItemByStrong('token', action.payload)
     }
   }
 });
 
 export const {
   toggleTheme, setSystemName,
-  setHeaderHeight, setAsideWidth
+  setHeaderHeight, setAsideWidth, setToken
 } = settingSlice.actions;
 
 export default settingSlice.reducer;

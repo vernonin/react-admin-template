@@ -6,6 +6,7 @@ const token = {
   // 派生变量，影响范围小
   colorBgContainer: '#ffffff',
   colorBgLayout: '#ffffff',
+  rowSelectedBg: '#f8fafc'
 }
 
 const menu = {
@@ -16,6 +17,11 @@ const menu = {
 export default {
   token,
   components: {
-    Menu: menu
+    Menu: menu,
+    Table: {
+      rowSelectedBg: '#f3f4f6',
+      rowHoverBg: '#f3f4f6',
+      rowSelectedHoverBg: '#f3f4f6'
+    }
   },
 }

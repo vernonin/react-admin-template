@@ -1,36 +1,23 @@
-import { useRoutes, Navigate } from 'react-router-dom'
-
-import Layout from '../layout'
-import Login from '../pages/login'
-import Register from '../pages/register'
+import { useRoutes } from 'react-router-dom'
 import NotFound from '../pages/NotFound'
 
 import asyncRoutes from './asyncRoutes'
+import authRoutes from './authRoutes';
+import { useAppSelector } from '../store/hooks'
 
+const staticRoutes = [
+	{
+		path: '*',
+		element: <NotFound />
+	},
+]
 
 const Router = () => {
-	return useRoutes([
-		{
-			path: '/',
-			element: <Navigate to="/dashboard" />
-		},
-		{
-			path: '/',
-			element: <Layout />
-		},
-		{
-			path: '/login',
-			element: <Login />
-		},
-		{
-			path: '/register',
-			element: <Register />
-		},
-		{
-			path: '*',
-			element: <NotFound />
-		},
-		...asyncRoutes
-	])
+	const token = useAppSelector(state => state.setting.token)
+	console.log('res:', token)
+
+	const routes = token ? asyncRoutes.concat(staticRoutes, authRoutes) : authRoutes.concat(staticRoutes)
+
+	return useRoutes(routes)
 }
 export default Router

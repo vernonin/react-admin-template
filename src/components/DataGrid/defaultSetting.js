@@ -30,8 +30,8 @@ export const defaultToolbarActions = [
     icon: <EditOutlined />
   },
   {
-    key: 'export',
-    text: '批量导出',
+    key: 'import',
+    text: '批量导入',
     icon: <ImportOutlined />
   },
   {

@@ -146,7 +146,7 @@ const Excel = () => {
         <Table columns={columns} dataSource={data} />
       </Card>
 
-      <Modal width="440px" title="上传Excel" visible={modalOpen} onOk={handleOk} onCancel={() => setModalOpen(false)}>
+      <Modal width="440px" title="上传Excel" open={modalOpen} onOk={handleOk} onCancel={() => setModalOpen(false)}>
           <Upload {...props}>
         <div style={uploadStyled}>
             <UploadOutlined style={{fontSize: '30px'}} />

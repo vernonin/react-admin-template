@@ -3,20 +3,22 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import DynamicIsland  from '../../layout/components/DynamicIsland'
-import { useAppSelector } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import LonginSvg from '../../icons/svg/login.svg'
-
+import { setToken } from '../../store/features/setting/settingSlice';
 
 import './index.css'
 
 
 const Login = () => {
+	const appDispatch = useAppDispatch();
   const systemName = useAppSelector(state => state.setting.systemName);
 
 	const navigate = useNavigate()
 
 	const onFinish = values => {
 		console.log('Success:', values)
+		appDispatch(setToken('asdfghjkl'))
 
 		navigate('/', { replace: true })
 		setTimeout(() => {
@@ -24,9 +26,7 @@ const Login = () => {
 				(<div style={{fontSize: '12px'}}>
 					<span>欢迎回来！</span>
 					<span>您上次登录时间：2021-09-01 12:00:00</span>
-				</div>), {
-					duration: 3000
-				}
+				</div>)
 			)
 		}, 500)
 	}

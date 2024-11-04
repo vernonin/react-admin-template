@@ -16,7 +16,10 @@ const menu = {
 export default {
   token,
   components: {
-    Menu: menu
+    Menu: menu,
+    Button: {
+      primaryColor: '#000'
+    }
   },
   algorithm: theme.darkAlgorithm
 }

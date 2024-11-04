@@ -4,8 +4,8 @@ import {
   SearchOutlined, CheckCircleTwoTone, CloseCircleTwoTone,
   ExclamationCircleTwoTone, BellTwoTone, CloseOutlined,
   CheckOutlined, LoadingOutlined
-} from '@ant-design/icons'
-import styled from 'styled-components'
+} from '@ant-design/icons';
+import styled from 'styled-components';
 
 const ConfirmDiv = styled.div`
   width: 100%;
@@ -60,7 +60,7 @@ const iconMap = {
   info: <CheckCircleTwoTone twoToneColor="#1890ff" />,
   notice: <BellTwoTone />,
   confirm: <ExclamationCircleTwoTone twoToneColor="#faad14" />,
-  loading: <LoadingOutlined style={{color:"#1890ff"}} /> 
+  loading: <LoadingOutlined />
 }
 
 const DI_EVENT_KEY = 'di:event';
@@ -129,6 +129,8 @@ export default function DynamicIsland() {
       window.removeEventListener(DI_EVENT_KEY, handleEvent)
     }
   }, [handleEvent])
+
+
 
   return (
     <DynamicIslandWrapper isExpand={isExpand} onClick={() => setInitalState()}>
